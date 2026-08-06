@@ -18,6 +18,9 @@ function uniqueEdges(aristas) {
 }
 
 export default function MineMap({ graph, trucks, shovels }) {
+
+  console.log("MineMap render", { graph, trucks, shovels });
+
   if (!graph.nodos || graph.nodos.length === 0) return null;
   const nodeById = Object.fromEntries(graph.nodos.map((n) => [n.id, n]));
   const shovelByNode = Object.fromEntries(shovels.map((s) => [s.nodo, s]));
@@ -68,16 +71,21 @@ export default function MineMap({ graph, trucks, shovels }) {
         );
       })}
 
-      {trucks.map((t) => (
-        <g key={t.id}>
-          <circle
-            cx={t.x}
-            cy={t.y}
-            r={9}
-            fill={ESTADO_COLOR[t.estado] || "#9ca3af"}
-            stroke="#0f1115"
-            strokeWidth={2}
-            style={{ transition: "cx 1s linear, cy 1s linear, fill 0.3s linear" }}
+      {trucks.map((t) => {
+        const isVuelta = t.estado === "hauling" && t._fase === "vuelta";
+        return (
+          <g key={t.id}>
+          <image
+            href={`/camion_${isVuelta ? "" : "sin_"}carga.png`}
+            x={t.x - 15}
+            y={t.y - 15}
+            width={30}
+            height={30}
+            transform={
+              isVuelta
+                ? undefined
+                : `translate(${2 * t.x}, 0) scale(-1, 1)`
+            }
           />
           <text
             x={t.x}
@@ -86,11 +94,12 @@ export default function MineMap({ graph, trucks, shovels }) {
             fontSize="11"
             fill="#f3f4f6"
             style={{ transition: "x 1s linear, y 1s linear" }}
-          >
+            >
             {t.id}
           </text>
         </g>
-      ))}
+        );
+      })}
     </svg>
   );
 }
