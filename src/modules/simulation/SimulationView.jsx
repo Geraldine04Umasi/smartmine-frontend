@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSimState, useMetrics, useGraph, startSim } from "../../useSimState";
+import { useLiveSession, startSim } from "../../useSimState";
 import SimCanvas from "./SimCanvas";
 import Controls from "./Controls";
 import MetricCard from "../../components/MetricCard";
@@ -33,9 +33,7 @@ export default function SimulationView() {
   const [starting, setStarting] = useState(false);
   const [running, setRunning] = useState(true);
 
-  const { trucks, shovels } = useSimState("default");
-  const metrics = useMetrics("default");
-  const graph = useGraph("default");
+  const { trucks, shovels, metricas: metrics, graph } = useLiveSession("default", phase === "running");
 
   const handleStart = async () => {
     setStarting(true);

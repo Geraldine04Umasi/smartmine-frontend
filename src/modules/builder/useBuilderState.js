@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 const PREFIX = { nodo: "N", pala: "P", estacion: "E" };
 
@@ -31,11 +31,31 @@ export function useBuilderState() {
 
   // Los ids se derivan del estado previo (puro) para que funcionen bien
   // con el doble-invocado de StrictMode en desarrollo.
-  const addNode = useCallback((tipo, x, y) => {
+  // Recuerda el último nodo colocado para el modo "auto-conectar".
+  const lastNodeId = useRef(null);
+
+  const addNode = useCallback((tipo, x, y, autoConnect = false) => {
     setNodes((prev) => {
       if (tipo === "estacion" && prev.some((n) => n.tipo === "estacion")) return prev;
       const count = prev.filter((n) => n.tipo === tipo).length + 1;
       const id = `${PREFIX[tipo]}${count}`;
+
+      if (autoConnect && lastNodeId.current) {
+        const from = prev.find((n) => n.id === lastNodeId.current);
+        if (from) {
+          const pixelDist = Math.hypot(x - from.x, y - from.y);
+          const km = Math.max(0.1, Math.round((pixelDist / 300) * 10) / 10);
+          setEdges((prevEdges) => {
+            const exists = prevEdges.some(
+              (e) => (e.from === from.id && e.to === id) || (e.from === id && e.to === from.id)
+            );
+            if (exists) return prevEdges;
+            return [...prevEdges, { from: from.id, to: id, distancia_km: km, cp: null }];
+          });
+        }
+      }
+
+      lastNodeId.current = id;
       return [...prev, { id, x, y, tipo }];
     });
   }, []);
@@ -64,6 +84,16 @@ export function useBuilderState() {
     setEdges((prev) =>
       prev.map((e) =>
         (e.from === from && e.to === to) || (e.from === to && e.to === from) ? { ...e, cp } : e
+      )
+    );
+  }, []);
+
+  const updateEdgeDistance = useCallback((from, to, km) => {
+    setEdges((prev) =>
+      prev.map((e) =>
+        (e.from === from && e.to === to) || (e.from === to && e.to === from)
+          ? { ...e, distancia_km: km }
+          : e
       )
     );
   }, []);
@@ -123,6 +153,7 @@ export function useBuilderState() {
     removeNode,
     addEdge,
     setEdgeCp,
+    updateEdgeDistance,
     removeEdge,
     addTruck,
     removeTruck,

@@ -4,7 +4,7 @@ import Toolbar from "./Toolbar";
 import BuilderCanvas from "./BuilderCanvas";
 import EventPanel from "./EventPanel";
 import { useBuilderState } from "./useBuilderState";
-import { createCustomSession, startSim, useSimState, useMetrics, useGraph } from "../../useSimState";
+import { createCustomSession, startSim, useLiveSession } from "../../useSimState";
 import SimCanvas from "../simulation/SimCanvas";
 import Controls from "../simulation/Controls";
 import MetricCard from "../../components/MetricCard";
@@ -14,15 +14,14 @@ import ShovelQueueTable from "../../components/ShovelQueueTable";
 export default function BuilderView() {
   const builder = useBuilderState();
   const [tool, setTool] = useState("nodo");
+  const [autoConnect, setAutoConnect] = useState(false);
   const [mode, setMode] = useState("design"); // design | simulate
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [running, setRunning] = useState(true);
   const [faults, setFaults] = useState({ trucks: new Set(), shovels: new Set(), edges: new Set() });
 
-  const { trucks, shovels } = useSimState("custom");
-  const metrics = useMetrics("custom");
-  const graph = useGraph("custom");
+  const { trucks, shovels, metricas: metrics, graph } = useLiveSession("custom", mode === "simulate");
 
   const handleSimulate = async () => {
     if (!builder.validation.valid) return;
@@ -108,9 +107,9 @@ export default function BuilderView() {
       </header>
 
       <div className="flex gap-6">
-        <Toolbar tool={tool} setTool={setTool} />
+        <Toolbar tool={tool} setTool={setTool} autoConnect={autoConnect} setAutoConnect={setAutoConnect} />
         <div className="flex flex-col gap-3">
-          <BuilderCanvas builder={builder} tool={tool} />
+          <BuilderCanvas builder={builder} tool={tool} autoConnect={autoConnect} />
           {!builder.validation.valid && (
             <ul className="text-sm text-amber-400 list-disc list-inside">
               {builder.validation.errors.map((err) => (
