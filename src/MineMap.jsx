@@ -5,6 +5,33 @@ export const ESTADO_COLOR = {
   dumping: "#22c55e",
 };
 
+const OVERLAP_BUCKET_PX = 10;
+const OVERLAP_OFFSET_RADIUS = 11;
+
+function computeOverlapOffsets(trucks) {
+  const groups = {};
+  trucks.forEach((t) => {
+    const key = `${Math.round(t.x / OVERLAP_BUCKET_PX)},${Math.round(t.y / OVERLAP_BUCKET_PX)}`;
+    (groups[key] ||= []).push(t.id);
+  });
+
+  const offsets = {};
+  Object.values(groups).forEach((ids) => {
+    if (ids.length === 1) {
+      offsets[ids[0]] = { dx: 0, dy: 0 };
+      return;
+    }
+    ids.forEach((id, i) => {
+      const angle = (2 * Math.PI * i) / ids.length;
+      offsets[id] = {
+        dx: Math.cos(angle) * OVERLAP_OFFSET_RADIUS,
+        dy: Math.sin(angle) * OVERLAP_OFFSET_RADIUS,
+      };
+    });
+  });
+  return offsets;
+}
+
 function uniqueEdges(aristas) {
   const seen = new Set();
   const edges = [];
@@ -32,6 +59,7 @@ export default function MineMap({ graph, trucks, shovels }) {
   const minY = Math.min(...ys) - 35;
   const maxY = Math.max(...ys) + 40;
   const viewBox = `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
+  const overlapOffsets = computeOverlapOffsets(trucks);
 
   return (
     <svg viewBox={viewBox} className="w-full h-full bg-slate-900 rounded-lg">
