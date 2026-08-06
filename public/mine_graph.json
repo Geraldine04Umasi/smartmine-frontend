@@ -1,0 +1,484 @@
+{
+  "nodos": [
+    {
+      "id": "N0",
+      "x": 50,
+      "y": 50
+    },
+    {
+      "id": "N1",
+      "x": 180,
+      "y": 50
+    },
+    {
+      "id": "N2",
+      "x": 310,
+      "y": 50
+    },
+    {
+      "id": "N3",
+      "x": 440,
+      "y": 50
+    },
+    {
+      "id": "N4",
+      "x": 570,
+      "y": 50
+    },
+    {
+      "id": "N5",
+      "x": 50,
+      "y": 150
+    },
+    {
+      "id": "N6",
+      "x": 180,
+      "y": 150
+    },
+    {
+      "id": "N7",
+      "x": 310,
+      "y": 150
+    },
+    {
+      "id": "N8",
+      "x": 440,
+      "y": 150
+    },
+    {
+      "id": "N9",
+      "x": 570,
+      "y": 150
+    },
+    {
+      "id": "N10",
+      "x": 50,
+      "y": 250
+    },
+    {
+      "id": "N11",
+      "x": 180,
+      "y": 250
+    },
+    {
+      "id": "N12",
+      "x": 310,
+      "y": 250
+    },
+    {
+      "id": "N13",
+      "x": 440,
+      "y": 250
+    },
+    {
+      "id": "N14",
+      "x": 570,
+      "y": 250
+    },
+    {
+      "id": "N15",
+      "x": 50,
+      "y": 350
+    },
+    {
+      "id": "N16",
+      "x": 180,
+      "y": 350
+    },
+    {
+      "id": "N17",
+      "x": 310,
+      "y": 350
+    },
+    {
+      "id": "N18",
+      "x": 440,
+      "y": 350
+    },
+    {
+      "id": "N19",
+      "x": 570,
+      "y": 350
+    }
+  ],
+  "aristas": [
+    {
+      "from": "N0",
+      "to": "N1",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N1",
+      "to": "N0",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N0",
+      "to": "N5",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N5",
+      "to": "N0",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N1",
+      "to": "N2",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N2",
+      "to": "N1",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N1",
+      "to": "N6",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N6",
+      "to": "N1",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N2",
+      "to": "N3",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N3",
+      "to": "N2",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N2",
+      "to": "N7",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N7",
+      "to": "N2",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N3",
+      "to": "N4",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N4",
+      "to": "N3",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N3",
+      "to": "N8",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N8",
+      "to": "N3",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N4",
+      "to": "N9",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N9",
+      "to": "N4",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N5",
+      "to": "N6",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N6",
+      "to": "N5",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N5",
+      "to": "N10",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N10",
+      "to": "N5",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N6",
+      "to": "N7",
+      "distancia_km": 0.5,
+      "bloqueado": true
+    },
+    {
+      "from": "N7",
+      "to": "N6",
+      "distancia_km": 0.5,
+      "bloqueado": true
+    },
+    {
+      "from": "N6",
+      "to": "N11",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N11",
+      "to": "N6",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N7",
+      "to": "N8",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N8",
+      "to": "N7",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N7",
+      "to": "N12",
+      "distancia_km": 0.4,
+      "bloqueado": true
+    },
+    {
+      "from": "N12",
+      "to": "N7",
+      "distancia_km": 0.4,
+      "bloqueado": true
+    },
+    {
+      "from": "N8",
+      "to": "N9",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N9",
+      "to": "N8",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N8",
+      "to": "N13",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N13",
+      "to": "N8",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N9",
+      "to": "N14",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N14",
+      "to": "N9",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N10",
+      "to": "N11",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N11",
+      "to": "N10",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N10",
+      "to": "N15",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N15",
+      "to": "N10",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N11",
+      "to": "N12",
+      "distancia_km": 0.5,
+      "bloqueado": true
+    },
+    {
+      "from": "N12",
+      "to": "N11",
+      "distancia_km": 0.5,
+      "bloqueado": true
+    },
+    {
+      "from": "N11",
+      "to": "N16",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N16",
+      "to": "N11",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N12",
+      "to": "N13",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N13",
+      "to": "N12",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N12",
+      "to": "N17",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N17",
+      "to": "N12",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N13",
+      "to": "N14",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N14",
+      "to": "N13",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N13",
+      "to": "N18",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N18",
+      "to": "N13",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N14",
+      "to": "N19",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N19",
+      "to": "N14",
+      "distancia_km": 0.4,
+      "bloqueado": false
+    },
+    {
+      "from": "N15",
+      "to": "N16",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N16",
+      "to": "N15",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N16",
+      "to": "N17",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N17",
+      "to": "N16",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N17",
+      "to": "N18",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N18",
+      "to": "N17",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N18",
+      "to": "N19",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    },
+    {
+      "from": "N19",
+      "to": "N18",
+      "distancia_km": 0.5,
+      "bloqueado": false
+    }
+  ],
+  "entrada": "N0",
+  "palas": {
+    "P01": "N4",
+    "P02": "N9",
+    "P03": "N19"
+  }
+}
