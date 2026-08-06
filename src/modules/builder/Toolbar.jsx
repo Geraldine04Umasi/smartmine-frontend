@@ -7,7 +7,7 @@ const TOOLS = [
   { id: "borrar", label: "Borrar", icon: "✕" },
 ];
 
-export default function Toolbar({ tool, setTool }) {
+export default function Toolbar({ tool, setTool, autoConnect, setAutoConnect }) {
   return (
     <div className="flex flex-col gap-2 bg-slate-900 border border-slate-800 rounded-xl p-3 w-40 h-fit">
       {TOOLS.map((t) => (
@@ -22,6 +22,20 @@ export default function Toolbar({ tool, setTool }) {
           {t.label}
         </button>
       ))}
+
+      <label className="flex items-start gap-2 px-3 py-2 mt-1 border-t border-slate-800 pt-3 text-xs text-slate-300 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={autoConnect}
+          onChange={(e) => setAutoConnect(e.target.checked)}
+          className="mt-0.5"
+        />
+        <span>
+          🔗 Auto-conectar
+          <br />
+          <span className="text-slate-500">Conecta cada nodo nuevo con el anterior</span>
+        </span>
+      </label>
     </div>
   );
 }

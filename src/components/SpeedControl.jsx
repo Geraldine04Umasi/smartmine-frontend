@@ -1,7 +1,7 @@
 import { setSpeed as postSpeed } from "../useSimState";
 
 export default function SpeedControl({ speed, setSpeed, session = "default" }) {
-  const options = [1, 5, 20];
+  const options = [1, 5, 10, 15, 20];
   const changeSpeed = (mult) => {
     setSpeed(mult);
     postSpeed(mult, session).catch(() => {});

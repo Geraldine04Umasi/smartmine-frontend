@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const API_BASE = import.meta.env.VITE_API_BASE;
+const WS_BASE = API_BASE.replace(/^http/, "ws");
 
 function qs(session) {
   return `?session=${encodeURIComponent(session)}`;
@@ -17,63 +18,59 @@ function postJSON(path, body) {
   });
 }
 
-export function useSimState(session = "default") {
-  const [state, setState] = useState({ trucks: [], shovels: [] });
-
-  useEffect(() => {
-    const poll = () => {
-      fetch(`${API_BASE}/state${qs(session)}`)
-        .then((r) => r.json())
-        .then(setState)
-        .catch(() => {});
-    };
-    poll();
-    const interval = setInterval(poll, 1000);
-    return () => clearInterval(interval);
-  }, [session]);
-
-  return state;
-}
-
-export function useMetrics(session = "default") {
-  const [metrics, setMetrics] = useState({
+const EMPTY_LIVE_DATA = {
+  trucks: [],
+  shovels: [],
+  metricas: {
     tiempo_espera_promedio: 0,
     ciclos_completados: 0,
     tiempo_ciclo_promedio: 0,
     camiones_activos: 0,
-  });
+  },
+  graph: { nodos: [], aristas: [] },
+};
+
+// Reemplaza el polling REST (3 peticiones/seg por vista) por un único
+// WebSocket por sesión que recibe trucks/shovels/metricas/graph en cada tick.
+// `enabled` permite no abrir el socket hasta que la sesión realmente exista
+// (p.ej. la sesión "custom" antes de crear el diseño en el constructor).
+export function useLiveSession(session = "default", enabled = true) {
+  const [data, setData] = useState(EMPTY_LIVE_DATA);
 
   useEffect(() => {
-    const poll = () => {
-      fetch(`${API_BASE}/metrics${qs(session)}`)
-        .then((r) => r.json())
-        .then(setMetrics)
-        .catch(() => {});
+    if (!enabled) {
+      setData(EMPTY_LIVE_DATA);
+      return;
+    }
+
+    let socket;
+    let retryTimer;
+    let closedByUs = false;
+
+    const connect = () => {
+      socket = new WebSocket(`${WS_BASE}/ws${qs(session)}`);
+      socket.onmessage = (evt) => {
+        try {
+          setData(JSON.parse(evt.data));
+        } catch {
+          // ignorar mensajes malformados
+        }
+      };
+      socket.onclose = () => {
+        if (!closedByUs) retryTimer = setTimeout(connect, 1000);
+      };
+      socket.onerror = () => socket.close();
     };
-    poll();
-    const interval = setInterval(poll, 1000);
-    return () => clearInterval(interval);
-  }, [session]);
 
-  return metrics;
-}
-
-export function useGraph(session = "default") {
-  const [graph, setGraph] = useState({ nodos: [], aristas: [] });
-
-  useEffect(() => {
-    const poll = () => {
-      fetch(`${API_BASE}/graph${qs(session)}`)
-        .then((r) => r.json())
-        .then(setGraph)
-        .catch(() => {});
+    connect();
+    return () => {
+      closedByUs = true;
+      clearTimeout(retryTimer);
+      socket?.close();
     };
-    poll();
-    const interval = setInterval(poll, 1000);
-    return () => clearInterval(interval);
-  }, [session]);
+  }, [session, enabled]);
 
-  return graph;
+  return data;
 }
 
 // -- Control de simulacion --
