@@ -106,13 +106,21 @@
       "from": "N0",
       "to": "N1",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 115,
+        "y": 30
+      }
     },
     {
       "from": "N1",
       "to": "N0",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 115,
+        "y": 30
+      }
     },
     {
       "from": "N0",
@@ -154,13 +162,21 @@
       "from": "N2",
       "to": "N3",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 375,
+        "y": 30
+      }
     },
     {
       "from": "N3",
       "to": "N2",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 375,
+        "y": 30
+      }
     },
     {
       "from": "N2",
@@ -202,13 +218,21 @@
       "from": "N4",
       "to": "N9",
       "distancia_km": 0.4,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 600,
+        "y": 100
+      }
     },
     {
       "from": "N9",
       "to": "N4",
       "distancia_km": 0.4,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 600,
+        "y": 100
+      }
     },
     {
       "from": "N5",
@@ -406,13 +430,21 @@
       "from": "N13",
       "to": "N18",
       "distancia_km": 0.4,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 465,
+        "y": 300
+      }
     },
     {
       "from": "N18",
       "to": "N13",
       "distancia_km": 0.4,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 465,
+        "y": 300
+      }
     },
     {
       "from": "N14",
@@ -442,13 +474,21 @@
       "from": "N16",
       "to": "N17",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 245,
+        "y": 375
+      }
     },
     {
       "from": "N17",
       "to": "N16",
       "distancia_km": 0.5,
-      "bloqueado": false
+      "bloqueado": false,
+      "cp": {
+        "x": 245,
+        "y": 375
+      }
     },
     {
       "from": "N17",
