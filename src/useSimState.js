@@ -30,6 +30,7 @@ const EMPTY_LIVE_DATA = {
     modo: "smartmine",
     utilizacion_pct: 0,
     comparacion: { smartmine: null, baseline: null },
+    speed_multiplier: 1,
   },
   graph: { nodos: [], aristas: [] },
   avisos: [],

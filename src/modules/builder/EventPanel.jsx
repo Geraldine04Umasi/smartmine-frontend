@@ -47,11 +47,11 @@ export default function EventPanel({ trucks, shovels, graph, setFaults }) {
 
   return (
     <div className="bg-slate-800 rounded-lg p-4 flex flex-col gap-3">
-      <h2 className="text-slate-200 font-semibold">⚡ Inyectar Evento</h2>
+      <h2 className="text-slate-200 font-semibold text-lg">⚡ Inyectar Evento</h2>
       <select
         value={target}
         onChange={(e) => setTarget(e.target.value)}
-        className="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-sm text-slate-200"
+        className="bg-slate-900 border border-slate-700 rounded px-2 py-2 text-base text-slate-200"
       >
         <option value="">Seleccionar elemento...</option>
         <optgroup label="Camión — avería mecánica">
@@ -79,11 +79,11 @@ export default function EventPanel({ trucks, shovels, graph, setFaults }) {
       <button
         onClick={inject}
         disabled={!target || busy}
-        className="bg-red-600 hover:bg-red-500 disabled:opacity-40 text-white text-sm font-semibold py-2 rounded-md"
+        className="bg-red-600 hover:bg-red-500 disabled:opacity-40 text-white text-base font-semibold py-2 rounded-md"
       >
         {busy ? "Inyectando..." : "Simular falla"}
       </button>
-      {error && <p className="text-xs text-red-400">{error}</p>}
+      {error && <p className="text-sm text-red-400">{error}</p>}
     </div>
   );
 }

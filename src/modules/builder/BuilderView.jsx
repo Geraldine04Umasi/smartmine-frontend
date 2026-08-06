@@ -81,8 +81,8 @@ export default function BuilderView() {
           <MetricCard label="Camiones activos" value={metrics.camiones_activos} />
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2 flex flex-col gap-2">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
             <div className="aspect-[4/3]">
               <SimCanvas
                 graph={graph}
@@ -90,6 +90,7 @@ export default function BuilderView() {
                 shovels={shovels}
                 faults={faults}
                 onToggleRoad={handleToggleRoadOnMap}
+                speedMultiplier={metrics.speed_multiplier}
               />
             </div>
             <p className="text-xs text-slate-500">

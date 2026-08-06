@@ -1,8 +1,8 @@
 export default function ShovelQueueTable({ shovels }) {
   return (
     <div className="bg-slate-800 rounded-lg p-4">
-      <h2 className="text-slate-300 font-semibold mb-3">Colas por pala</h2>
-      <table className="w-full text-sm">
+      <h2 className="text-slate-300 font-semibold text-lg mb-3">Colas por pala</h2>
+      <table className="w-full text-base">
         <thead>
           <tr className="text-slate-400 text-left">
             <th className="pb-2">Pala</th>

@@ -13,9 +13,9 @@ export default function AvisosPanel({ avisos }) {
 
   return (
     <div className="bg-slate-800 rounded-lg p-4 flex flex-col gap-2">
-      <h2 className="text-slate-300 font-semibold">📣 Avisos</h2>
+      <h2 className="text-slate-300 font-semibold text-lg">📣 Avisos</h2>
       {recientes.length === 0 ? (
-        <p className="text-sm text-slate-500">Sin novedades por ahora.</p>
+        <p className="text-base text-slate-500">Sin novedades por ahora.</p>
       ) : (
         <ul className="flex flex-col gap-2 max-h-64 overflow-y-auto">
           {recientes.map((a, i) => {
@@ -23,11 +23,11 @@ export default function AvisosPanel({ avisos }) {
             return (
               <li
                 key={i}
-                className={`flex items-start gap-2 border-l-4 rounded-r-md px-2 py-1.5 text-sm text-slate-200 ${info.classes}`}
+                className={`flex items-start gap-2 border-l-4 rounded-r-md px-2 py-1.5 text-base text-slate-200 ${info.classes}`}
               >
-                <span className="text-base leading-none mt-0.5">{info.icon}</span>
+                <span className="text-lg leading-none mt-0.5">{info.icon}</span>
                 <div className="flex flex-col">
-                  <span className="text-[10px] uppercase tracking-wide text-slate-400">{info.label}</span>
+                  <span className="text-xs uppercase tracking-wide text-slate-400">{info.label}</span>
                   <span>{a.texto}</span>
                 </div>
               </li>

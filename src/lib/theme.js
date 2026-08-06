@@ -4,6 +4,7 @@ export const ESTADO_COLOR = {
   idle: "#6b7280",
   hauling_empty: "#38bdf8",
   hauling_loaded: "#f97316",
+  queued: "#ef4444",
   loading: "#f59e0b",
   dumping: "#22c55e",
 };
@@ -12,6 +13,7 @@ export const ESTADO_LABEL = {
   idle: "Libre",
   hauling_empty: "En ruta (vacío)",
   hauling_loaded: "En ruta (cargado)",
+  queued: "En cola",
   loading: "Cargando",
   dumping: "Descargando",
 };
