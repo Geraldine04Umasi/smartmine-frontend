@@ -95,7 +95,7 @@ function computeTruckTransform(truck, nodeById, edgeIndex) {
   return last ? { x: last.x, y: last.y, angle: 0 } : { x: truck.x, y: truck.y, angle: 0 };
 }
 
-export default function SimCanvas({ graph, trucks, shovels, faults }) {
+export default function SimCanvas({ graph, trucks, shovels, faults, onToggleRoad }) {
   const containerRef = useRef(null);
   const [size, setSize] = useState({ width: 600, height: 450 });
 
@@ -155,15 +155,37 @@ export default function SimCanvas({ graph, trucks, shovels, faults }) {
             if (!a || !b) return null;
             const isBlocked = e.bloqueado;
             const edgeFault = faultEdges.has([e.from, e.to].sort().join("-"));
+            const mid = pointOnEdge(a, b, e.cp, 0.5);
             return (
-              <Path
-                key={i}
-                data={edgePathData(a, b, e.cp)}
-                stroke={edgeFault ? "#ef4444" : isBlocked ? "#4b5563" : "#78350f"}
-                strokeWidth={4}
-                dash={isBlocked ? [6, 6] : undefined}
-                lineCap="round"
-              />
+              <Group key={i}>
+                <Path
+                  data={edgePathData(a, b, e.cp)}
+                  stroke={edgeFault ? "#ef4444" : isBlocked ? "#4b5563" : "#78350f"}
+                  strokeWidth={4}
+                  dash={isBlocked ? [6, 6] : undefined}
+                  lineCap="round"
+                />
+                {onToggleRoad && (
+                  <Group
+                    x={mid.x}
+                    y={mid.y}
+                    onClick={() => onToggleRoad(e.from, e.to)}
+                    onTap={() => onToggleRoad(e.from, e.to)}
+                  >
+                    <Circle radius={9} fill={isBlocked ? "#ef4444" : "#1f2937"} stroke="#0f1115" strokeWidth={1} />
+                    <Text
+                      text={isBlocked ? "🚧" : "🔧"}
+                      x={-8}
+                      y={-8}
+                      width={16}
+                      height={16}
+                      fontSize={12}
+                      align="center"
+                      verticalAlign="middle"
+                    />
+                  </Group>
+                )}
+              </Group>
             );
           })}
 

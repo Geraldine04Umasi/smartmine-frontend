@@ -6,6 +6,8 @@ import Controls from "./Controls";
 import MetricCard from "../../components/MetricCard";
 import EstadoLegend from "../../components/EstadoLegend";
 import ShovelQueueTable from "../../components/ShovelQueueTable";
+import AvisosPanel from "../../components/AvisosPanel";
+import AhorroBadge from "../../components/AhorroBadge";
 
 function StartScreen({ onStart, starting }) {
   return (
@@ -33,7 +35,7 @@ export default function SimulationView() {
   const [starting, setStarting] = useState(false);
   const [running, setRunning] = useState(true);
 
-  const { trucks, shovels, metricas: metrics, graph } = useLiveSession("default", phase === "running");
+  const { trucks, shovels, metricas: metrics, graph, avisos } = useLiveSession("default", phase === "running");
 
   const handleStart = async () => {
     setStarting(true);
@@ -58,6 +60,7 @@ export default function SimulationView() {
           <p className="text-slate-400 text-sm">Módulo 1 — Simulación en tiempo real</p>
         </div>
         <div className="flex items-center gap-4">
+          <AhorroBadge minutos={metrics.tiempo_ahorrado_min} />
           <Controls session="default" running={running} setRunning={setRunning} />
           <Link to="/" className="text-slate-500 text-sm hover:text-slate-300">
             ← Módulos
@@ -79,7 +82,10 @@ export default function SimulationView() {
           </div>
           <EstadoLegend />
         </div>
-        <ShovelQueueTable shovels={shovels} />
+        <div className="flex flex-col gap-4">
+          <ShovelQueueTable shovels={shovels} />
+          <AvisosPanel avisos={avisos} />
+        </div>
       </div>
     </div>
   );

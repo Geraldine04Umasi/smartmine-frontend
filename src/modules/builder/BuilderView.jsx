@@ -4,12 +4,14 @@ import Toolbar from "./Toolbar";
 import BuilderCanvas from "./BuilderCanvas";
 import EventPanel from "./EventPanel";
 import { useBuilderState } from "./useBuilderState";
-import { createCustomSession, startSim, useLiveSession } from "../../useSimState";
+import { createCustomSession, startSim, toggleRoad, useLiveSession } from "../../useSimState";
 import SimCanvas from "../simulation/SimCanvas";
 import Controls from "../simulation/Controls";
 import MetricCard from "../../components/MetricCard";
 import EstadoLegend from "../../components/EstadoLegend";
 import ShovelQueueTable from "../../components/ShovelQueueTable";
+import AvisosPanel from "../../components/AvisosPanel";
+import AhorroBadge from "../../components/AhorroBadge";
 
 export default function BuilderView() {
   const builder = useBuilderState();
@@ -21,7 +23,13 @@ export default function BuilderView() {
   const [running, setRunning] = useState(true);
   const [faults, setFaults] = useState({ trucks: new Set(), shovels: new Set(), edges: new Set() });
 
-  const { trucks, shovels, metricas: metrics, graph } = useLiveSession("custom", mode === "simulate");
+  const { trucks, shovels, metricas: metrics, graph, avisos } = useLiveSession("custom", mode === "simulate");
+
+  const handleToggleRoadOnMap = (from, to) => {
+    toggleRoad(from, to, "custom").catch(() => {});
+    const key = [from, to].sort().join("-");
+    setFaults((f) => ({ ...f, edges: new Set([...f.edges, key]) }));
+  };
 
   const handleSimulate = async () => {
     if (!builder.validation.valid) return;
@@ -49,6 +57,7 @@ export default function BuilderView() {
             <p className="text-slate-400 text-sm">Módulo 2 — Constructor (simulando)</p>
           </div>
           <div className="flex items-center gap-4">
+            <AhorroBadge minutos={metrics.tiempo_ahorrado_min} />
             <Controls session="custom" running={running} setRunning={setRunning} />
             <button
               onClick={() => setMode("design")}
@@ -72,13 +81,23 @@ export default function BuilderView() {
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 flex flex-col gap-2">
             <div className="aspect-[4/3]">
-              <SimCanvas graph={graph} trucks={trucks} shovels={shovels} faults={faults} />
+              <SimCanvas
+                graph={graph}
+                trucks={trucks}
+                shovels={shovels}
+                faults={faults}
+                onToggleRoad={handleToggleRoadOnMap}
+              />
             </div>
+            <p className="text-xs text-slate-500">
+              🔧 Click en el ícono de una ruta en el mapa para averiarla (🚧 = bloqueada) — o usá el panel de eventos.
+            </p>
             <EstadoLegend />
           </div>
           <div className="flex flex-col gap-4">
             <EventPanel trucks={trucks} shovels={shovels} graph={graph} setFaults={setFaults} />
             <ShovelQueueTable shovels={shovels} />
+            <AvisosPanel avisos={avisos} />
           </div>
         </div>
       </div>

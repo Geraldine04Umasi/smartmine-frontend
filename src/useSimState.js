@@ -26,8 +26,10 @@ const EMPTY_LIVE_DATA = {
     ciclos_completados: 0,
     tiempo_ciclo_promedio: 0,
     camiones_activos: 0,
+    tiempo_ahorrado_min: 0,
   },
   graph: { nodos: [], aristas: [] },
+  avisos: [],
 };
 
 // Reemplaza el polling REST (3 peticiones/seg por vista) por un único
