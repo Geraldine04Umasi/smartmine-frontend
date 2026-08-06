@@ -2,13 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { Stage, Layer, Rect, Circle, Path, Image as KonvaImage, Text, Group } from "react-konva";
 import { useImage } from "../../lib/useImage";
 import { edgePathData, pointOnEdge } from "../../lib/bezier";
-import { ESTADO_COLOR } from "../../lib/theme";
+import { truckColor } from "../../lib/theme";
 import truckSvg from "../../assets/truck.svg";
 import shovelSvg from "../../assets/shovel.svg";
 import stationSvg from "../../assets/station.svg";
 
 const OVERLAP_BUCKET_PX = 10;
 const OVERLAP_OFFSET_RADIUS = 11;
+
+// Angulo derivado solo del id del camion (estable): evita que un camion
+// "salte" de posicion cuando otro camion entra o sale de su mismo grupo de
+// superposicion, ya que antes el angulo dependia del tamano del grupo.
+function hashAngle(id) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  }
+  return ((hash % 360) * Math.PI) / 180;
+}
 
 function computeOverlapOffsets(trucks) {
   const groups = {};
@@ -22,8 +33,8 @@ function computeOverlapOffsets(trucks) {
       offsets[ids[0]] = { dx: 0, dy: 0 };
       return;
     }
-    ids.forEach((id, i) => {
-      const angle = (2 * Math.PI * i) / ids.length;
+    ids.forEach((id) => {
+      const angle = hashAngle(id);
       offsets[id] = {
         dx: Math.cos(angle) * OVERLAP_OFFSET_RADIUS,
         dy: Math.sin(angle) * OVERLAP_OFFSET_RADIUS,
@@ -59,9 +70,12 @@ function buildEdgeIndex(aristas) {
 
 // Reproduce la caminata por segmentos de advance_truck (backend) para
 // ubicar al camion sobre la curva bezier visual de la arista actual.
+// Solo tiene sentido interpolar sobre `path` mientras el camion esta
+// "hauling": en cualquier otro estado (idle/loading/dumping) su x/y ya
+// reflejan la posicion real y `path` puede venir vacio o desactualizado.
 function computeTruckTransform(truck, nodeById, edgeIndex) {
   const path = truck.path;
-  if (!path || path.length < 2 || !nodeById[path[0]]) {
+  if (truck.estado !== "hauling" || !path || path.length < 2 || !nodeById[path[0]]) {
     return { x: truck.x, y: truck.y, angle: 0 };
   }
   let acumulado = 0;
@@ -206,7 +220,7 @@ export default function SimCanvas({ graph, trucks, shovels, faults }) {
             const isFault = faultTrucks.has(t.id);
             return (
               <Group key={t.id} x={x} y={y} rotation={angle}>
-                <Circle radius={12} fill={ESTADO_COLOR[t.estado] || "#9ca3af"} opacity={0.35} />
+                <Circle radius={12} fill={truckColor(t)} opacity={0.55} />
                 {truckImg && (
                   <KonvaImage image={truckImg} width={20} height={20} offsetX={10} offsetY={10} />
                 )}
