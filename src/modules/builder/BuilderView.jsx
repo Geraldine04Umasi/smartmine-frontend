@@ -11,7 +11,8 @@ import MetricCard from "../../components/MetricCard";
 import EstadoLegend from "../../components/EstadoLegend";
 import ShovelQueueTable from "../../components/ShovelQueueTable";
 import AvisosPanel from "../../components/AvisosPanel";
-import AhorroBadge from "../../components/AhorroBadge";
+import ComparacionPanel from "../../components/ComparacionPanel";
+import Logo from "../../components/Logo";
 
 export default function BuilderView() {
   const builder = useBuilderState();
@@ -52,12 +53,14 @@ export default function BuilderView() {
     return (
       <div className="min-h-screen bg-slate-950 text-white p-6 flex flex-col gap-6">
         <header className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">SmartMine AI</h1>
-            <p className="text-slate-400 text-sm">Módulo 2 — Constructor (simulando)</p>
+          <div className="flex items-center gap-3">
+            <Logo />
+            <div>
+              <h1 className="text-2xl font-bold">SmartMine AI</h1>
+              <p className="text-slate-400 text-sm">Módulo 2 — Constructor (simulando)</p>
+            </div>
           </div>
           <div className="flex items-center gap-4">
-            <AhorroBadge minutos={metrics.tiempo_ahorrado_min} />
             <Controls session="custom" running={running} setRunning={setRunning} />
             <button
               onClick={() => setMode("design")}
@@ -97,6 +100,7 @@ export default function BuilderView() {
           <div className="flex flex-col gap-4">
             <EventPanel trucks={trucks} shovels={shovels} graph={graph} setFaults={setFaults} />
             <ShovelQueueTable shovels={shovels} />
+            <ComparacionPanel comparacion={metrics.comparacion} />
             <AvisosPanel avisos={avisos} />
           </div>
         </div>
@@ -107,9 +111,12 @@ export default function BuilderView() {
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6 flex flex-col gap-6">
       <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">SmartMine AI</h1>
-          <p className="text-slate-400 text-sm">Módulo 2 — Constructor de mina</p>
+        <div className="flex items-center gap-3">
+          <Logo />
+          <div>
+            <h1 className="text-2xl font-bold">SmartMine AI</h1>
+            <p className="text-slate-400 text-sm">Módulo 2 — Constructor de mina</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <button

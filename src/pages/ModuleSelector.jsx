@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 function ModuleCard({ to, title, description, accent }) {
   return (
@@ -24,7 +25,8 @@ function ModuleCard({ to, title, description, accent }) {
 export default function ModuleSelector() {
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 gap-10">
-      <div className="text-center">
+      <div className="text-center flex flex-col items-center gap-2">
+        <Logo className="h-20 w-auto" />
         <h1 className="text-4xl font-bold">SmartMine AI</h1>
         <p className="text-slate-400 mt-2">Elige un módulo para comenzar</p>
       </div>

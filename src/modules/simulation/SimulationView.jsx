@@ -7,12 +7,14 @@ import MetricCard from "../../components/MetricCard";
 import EstadoLegend from "../../components/EstadoLegend";
 import ShovelQueueTable from "../../components/ShovelQueueTable";
 import AvisosPanel from "../../components/AvisosPanel";
-import AhorroBadge from "../../components/AhorroBadge";
+import ComparacionPanel from "../../components/ComparacionPanel";
+import Logo from "../../components/Logo";
 
 function StartScreen({ onStart, starting }) {
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center gap-6">
-      <div className="text-center">
+      <div className="text-center flex flex-col items-center gap-2">
+        <Logo className="h-16 w-auto" />
         <h1 className="text-4xl font-bold">SmartMine AI</h1>
         <p className="text-slate-400 mt-2">Módulo 1 — Simulación pre-construida</p>
       </div>
@@ -55,12 +57,14 @@ export default function SimulationView() {
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6 flex flex-col gap-6">
       <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">SmartMine AI</h1>
-          <p className="text-slate-400 text-sm">Módulo 1 — Simulación en tiempo real</p>
+        <div className="flex items-center gap-3">
+          <Logo />
+          <div>
+            <h1 className="text-2xl font-bold">SmartMine AI</h1>
+            <p className="text-slate-400 text-sm">Módulo 1 — Simulación en tiempo real</p>
+          </div>
         </div>
         <div className="flex items-center gap-4">
-          <AhorroBadge minutos={metrics.tiempo_ahorrado_min} />
           <Controls session="default" running={running} setRunning={setRunning} />
           <Link to="/" className="text-slate-500 text-sm hover:text-slate-300">
             ← Módulos
@@ -84,6 +88,7 @@ export default function SimulationView() {
         </div>
         <div className="flex flex-col gap-4">
           <ShovelQueueTable shovels={shovels} />
+          <ComparacionPanel comparacion={metrics.comparacion} />
           <AvisosPanel avisos={avisos} />
         </div>
       </div>
